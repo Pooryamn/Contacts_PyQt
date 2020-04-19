@@ -20,10 +20,27 @@ class Window(QWidget):
         self.show()
 
     def MainDesign(self):
-        pass
+        ### This function just create UI widgets : 
+
+        ########## List Widget ##########
+        # List Widget : 
+        self.ContactsList = QListWidget()
+        
+        ########## Buttons ##########
+        # New Button :
+        self.Btn_New = QPushButton('New')
+
+        # Edit Button :
+        self.Btn_Edit = QPushButton('Edit')
+
+        # Remove Button :
+        self.Btn_Remove = QPushButton('Remove')
 
     def Layouts(self):
+        # This function creates UI Layouts and setting Widgets to them : 
 
+        ########## Layouts ##########
+        # Mail Layout :
         self.MainLayout = QHBoxLayout()
         
         # Left Side Layout :
@@ -38,13 +55,22 @@ class Window(QWidget):
         # Right side Bottom Layout(for Buttons):
         self.RightBottomLayout = QHBoxLayout()
 
+        ########## Setting Layouts ##########
         # add two right layouts to right layouts :
         self.RightMainLayout.addLayout(self.RightTopLayout)
         self.RightMainLayout.addLayout(self.RightBottomLayout)
 
         # add Left and Right layouts to Main Layout:
-        self.MainLayout.addLayout(self.LeftSideLayout)
-        self.MainLayout.addLayout(self.RightMainLayout)
+        self.MainLayout.addLayout(self.LeftSideLayout,40)
+        self.MainLayout.addLayout(self.RightMainLayout,60)
+
+        ########## Add Widgets to LayOut ##########
+        # Right Side : 
+        self.RightTopLayout.addWidget(self.ContactsList) 
+        self.RightBottomLayout.addWidget(self.Btn_New)
+        self.RightBottomLayout.addWidget(self.Btn_Edit)
+        self.RightBottomLayout.addWidget(self.Btn_Remove)
+
 
         # set Main Layout for our ui :
         self.setLayout(self.MainLayout)
