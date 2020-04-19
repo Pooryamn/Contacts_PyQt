@@ -10,8 +10,12 @@ class Window(QWidget):
         
 
     def UI(self):
+        
         # Main Design Creator :
         self.MainDesign()
+        
+        # create layouts for UI :
+        self.Layouts()
 
         self.show()
 
@@ -19,7 +23,31 @@ class Window(QWidget):
         pass
 
     def Layouts(self):
-        pass
+
+        self.MainLayout = QHBoxLayout()
+        
+        # Left Side Layout :
+        self.LeftSideLayout = QFormLayout()
+
+        # Right Side Layout : 
+        self.RightMainLayout = QVBoxLayout()
+
+        # Right Side Top Layout :
+        self.RightTopLayout = QHBoxLayout()
+
+        # Right side Bottom Layout(for Buttons):
+        self.RightBottomLayout = QHBoxLayout()
+
+        # add two right layouts to right layouts :
+        self.RightMainLayout.addLayout(self.RightTopLayout)
+        self.RightMainLayout.addLayout(self.RightBottomLayout)
+
+        # add Left and Right layouts to Main Layout:
+        self.MainLayout.addLayout(self.LeftSideLayout)
+        self.MainLayout.addLayout(self.RightMainLayout)
+
+        # set Main Layout for our ui :
+        self.setLayout(self.MainLayout)
 
 def main():
     App = QApplication(sys.argv)
