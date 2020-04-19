@@ -1,5 +1,9 @@
 import sys
 from PyQt5.QtWidgets import *
+import sqlite3
+
+Connection = sqlite3.connect('DataBase/Contacts.db')
+Cursor = Connection.cursor()
 
 class Window(QWidget):
     def __init__(self):
