@@ -10,9 +10,13 @@ class Window(QWidget):
         
 
     def UI(self):
-        # all your code is here :
+        # Main Design Creator :
+        self.MainDesign()
+
         self.show()
 
+    def MainDesign(self):
+        pass
 
 def main():
     App = QApplication(sys.argv)
