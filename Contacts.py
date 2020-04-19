@@ -18,6 +18,9 @@ class Window(QWidget):
     def MainDesign(self):
         pass
 
+    def Layouts(self):
+        pass
+
 def main():
     App = QApplication(sys.argv)
     W = Window()
