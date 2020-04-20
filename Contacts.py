@@ -2,6 +2,8 @@ import sys
 from PyQt5.QtWidgets import *
 import sqlite3
 from PyQt5.QtGui import QPixmap,QFont
+from PyQt5.QtCore import *
+
 
 Connection = sqlite3.connect('DataBase/Contacts.db')
 Cursor = Connection.cursor()
@@ -108,6 +110,8 @@ class Class_AddContact(QWidget):
     def MainDesign(self):
         # create widgets : 
         self.lbl_Title = QLabel('Add Person')
+        self.lbl_Title.setStyleSheet('font-size: 24pt;font-family: Arial Bold;color: rgb(128,0,64);')
+        self.lbl_Title.setAlignment(Qt.AlignCenter)
         self.lbl_Image = QLabel()
         self.lbl_Image.setPixmap(QPixmap('icons/Man_Default.png')) 
         
