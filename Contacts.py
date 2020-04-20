@@ -1,6 +1,7 @@
 import sys
 from PyQt5.QtWidgets import *
 import sqlite3
+from PyQt5.QtGui import QPixmap,QFont
 
 Connection = sqlite3.connect('DataBase/Contacts.db')
 Cursor = Connection.cursor()
@@ -105,7 +106,11 @@ class Class_AddContact(QWidget):
         self.Layouts()
 
     def MainDesign(self):
-        pass
+        # create widgets : 
+        self.lbl_Title = QLabel('Add Person')
+        self.lbl_Image = QLabel()
+        self.lbl_Image.setPixmap(QPixmap('icons/Man_Default.png')) 
+        
 
     def Layouts(self):
 
@@ -123,6 +128,12 @@ class Class_AddContact(QWidget):
         # Add Top and Bottom layputs to main layout
         self.MainLayout.addLayout(self.TopLayout)
         self.MainLayout.addLayout(self.BottomLayout)
+
+        ########## Setting Widgets to Layouts ##########
+        self.TopLayout.addStretch()
+        self.TopLayout.addWidget(self.lbl_Title)
+        self.TopLayout.addWidget(self.lbl_Image)
+        self.TopLayout.addStretch()
 
         # set main layout for this form (Add Contacts)
         self.setLayout(self.MainLayout)
