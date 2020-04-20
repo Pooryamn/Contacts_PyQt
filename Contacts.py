@@ -33,6 +33,7 @@ class Window(QWidget):
         ########## Buttons ##########
         # New Button :
         self.Btn_New = QPushButton('New')
+        self.Btn_New.clicked.connect(self.Func_AddContact)
 
         # Edit Button :
         self.Btn_Edit = QPushButton('Edit')
@@ -78,6 +79,26 @@ class Window(QWidget):
 
         # set Main Layout for our ui :
         self.setLayout(self.MainLayout)
+
+    def Func_AddContact(self):
+        # This functoin open a new form to add contacts to DB
+        self.Form_AddContact = Class_AddContact()
+        self.close()
+
+## Add Contact Class (Contains Form):
+
+class Class_AddContact(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle('Add Contact')
+        self.setGeometry(450,150,350,600)
+        self.UI()
+        self.show()
+
+    def UI(self):
+        # This function create and design Form widgets
+        pass
+
 
 def main():
     App = QApplication(sys.argv)
