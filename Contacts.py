@@ -119,6 +119,7 @@ class Class_AddContact(QWidget):
         # Bottom Layout 
         self.BottomLayout = QFormLayout()
 
+        ########## Setting Layouts ##########
         # Add Top and Bottom layputs to main layout
         self.MainLayout.addLayout(self.TopLayout)
         self.MainLayout.addLayout(self.BottomLayout)
