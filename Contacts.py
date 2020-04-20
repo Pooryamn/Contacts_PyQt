@@ -97,7 +97,34 @@ class Class_AddContact(QWidget):
 
     def UI(self):
         # This function create and design Form widgets
+        
+        # Create widgets
+        self.MainDesign()
+        
+        # Create layouts and set widgets to them
+        self.Layouts()
+
+    def MainDesign(self):
         pass
+
+    def Layouts(self):
+
+        ########## Layouts #########
+        # main Layout 
+        self.MainLayout = QVBoxLayout()
+
+        # Top Layout
+        self.TopLayout = QVBoxLayout()
+
+        # Bottom Layout 
+        self.BottomLayout = QFormLayout()
+
+        # Add Top and Bottom layputs to main layout
+        self.MainLayout.addLayout(self.TopLayout)
+        self.MainLayout.addLayout(self.BottomLayout)
+
+        # set main layout for this form (Add Contacts)
+        self.setLayout(self.MainLayout)
 
 
 def main():
