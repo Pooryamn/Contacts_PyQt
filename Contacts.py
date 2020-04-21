@@ -109,14 +109,64 @@ class Class_AddContact(QWidget):
 
     def MainDesign(self):
         # create widgets : 
+
+        # For Top Layout :
         self.lbl_Title = QLabel('Add Person')
         self.lbl_Title.setStyleSheet('font-size: 24pt;font-family: Arial Bold;color: rgb(128,0,64);')
         self.lbl_Title.setAlignment(Qt.AlignCenter)
-        
+
         self.lbl_Image = QLabel()
-        self.lbl_Image.setPixmap(QPixmap('icons/Man_Default.png'))
+        self.lbl_Image.setPixmap(QPixmap('icons/Man_Default.png'),200,200)
+        self.lbl_Image.resize(200,200)
         self.lbl_Image.setAlignment(Qt.AlignCenter) 
+
+
+        # For Bottom Layout :
+        #name : 
+        self.lbl_Name = QLabel('Name* :')
+        self.txt_Name = QLineEdit()
+        self.txt_Name.setPlaceholderText('Enter first name')
         
+        # Lastname :
+        self.lbl_Lastname = QLabel('Last name :')
+        self.txt_Lastname = QLineEdit()
+        self.txt_Lastname.setPlaceholderText('Enter last name')
+
+        # Gender : 
+        self.lbl_Gender = QLabel('Gender* :')
+        self.Radio_Male = QRadioButton('Male')
+        self.Radio_Female = QRadioButton('Female')
+
+        self.RadioLayout = QHBoxLayout()
+        self.RadioLayout.addStretch()
+        self.RadioLayout.addWidget(self.Radio_Male)
+        self.RadioLayout.addWidget(self.Radio_Female)
+        self.RadioLayout.addStretch()
+
+        self.Radio_Male.setChecked(True)
+        #self.Radio_Male.changeEvent.connect(self.Change_Default)
+
+        # Phone :
+        self.lbl_Phone = QLabel('Phone number* :')
+        self.txt_Phone = QLineEdit()
+        self.txt_Phone.setPlaceholderText('Enter Phone number') 
+
+        # Email :
+        self.lbl_Email = QLabel('Email :')
+        self.txt_Email = QLineEdit()
+        self.txt_Email.setPlaceholderText('Enter Email')
+
+        # Image :
+        self.lbl_Images = QLabel('Picture :')
+        self.Btn_Image = QPushButton('Browse')
+
+        # Address 
+        self.lbl_Address = QLabel('Address :')
+        self.txt_Address = QTextEdit()
+
+        # Add Button :
+        self.Btn_Add = QPushButton('Add')
+
 
     def Layouts(self):
 
@@ -136,10 +186,21 @@ class Class_AddContact(QWidget):
         self.MainLayout.addLayout(self.BottomLayout)
 
         ########## Setting Widgets to Layouts ##########
+        # For Top Layout :
         self.TopLayout.addStretch()
         self.TopLayout.addWidget(self.lbl_Title)
         self.TopLayout.addWidget(self.lbl_Image)
         self.TopLayout.addStretch()
+
+        # For Bottom Layout :
+        self.BottomLayout.addRow(self.lbl_Name,self.txt_Name)
+        self.BottomLayout.addRow(self.lbl_Lastname,self.txt_Lastname)
+        self.BottomLayout.addRow(self.lbl_Gender,self.RadioLayout)
+        self.BottomLayout.addRow(self.lbl_Phone,self.txt_Phone)
+        self.BottomLayout.addRow(self.lbl_Email,self.txt_Email)
+        self.BottomLayout.addRow(self.lbl_Images,self.Btn_Image)
+        self.BottomLayout.addRow(self.lbl_Address,self.txt_Address)
+        self.BottomLayout.addRow("",self.Btn_Add)
 
         # set main layout for this form (Add Contacts)
         self.setLayout(self.MainLayout)
