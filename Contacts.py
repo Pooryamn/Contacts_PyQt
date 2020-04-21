@@ -112,8 +112,10 @@ class Class_AddContact(QWidget):
         self.lbl_Title = QLabel('Add Person')
         self.lbl_Title.setStyleSheet('font-size: 24pt;font-family: Arial Bold;color: rgb(128,0,64);')
         self.lbl_Title.setAlignment(Qt.AlignCenter)
+        
         self.lbl_Image = QLabel()
-        self.lbl_Image.setPixmap(QPixmap('icons/Man_Default.png')) 
+        self.lbl_Image.setPixmap(QPixmap('icons/Man_Default.png'))
+        self.lbl_Image.setAlignment(Qt.AlignCenter) 
         
 
     def Layouts(self):
