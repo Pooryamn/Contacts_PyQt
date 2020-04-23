@@ -3,6 +3,9 @@ from PyQt5.QtWidgets import *
 import sqlite3
 from PyQt5.QtGui import QPixmap,QFont
 from PyQt5.QtCore import *
+from PIL import Image
+import sys
+import os
 
 
 Connection = sqlite3.connect('DataBase/Contacts.db')
@@ -166,6 +169,7 @@ class Class_AddContact(QWidget):
         self.lbl_Images = QLabel('Picture :')
         self.Btn_Image = QPushButton('Browse')
         self.Btn_Image.setStyleSheet('background-color : rgb(176,28,129);')
+        self.Btn_Image.clicked.connect(self.LoadImage)
 
         # Address 
         self.lbl_Address = QLabel('Address :')
@@ -222,6 +226,32 @@ class Class_AddContact(QWidget):
             Pix_Woman = QPixmap('icons/Woman_Default.png')
             Pix_Woman = Pix_Woman.scaledToWidth(100)
             self.lbl_Image.setPixmap(Pix_Woman)
+
+    def LoadImage(self):
+        
+        size = (100,100)
+        self.FileName,ok = QFileDialog.getOpenFileName(self,'Load Image','','Image Files(*.jpg *.png)')
+
+
+        if (ok):
+
+            exact_filename = os.path.basename(self.FileName)
+
+            Image_File = Image.open(self.FileName)
+            Image_File = Image_File.resize(size)
+
+            directory = os.path.dirname(os.path.abspath(__file__)) + '/imgs'
+            if not os.path.exists(directory):
+                os.makedirs(directory)
+
+            Image_File.save('imgs/{}'.format(exact_filename))
+            
+            Pix_Image = QPixmap('imgs/{}'.format(exact_filename))
+            Pix_Image = Pix_Image.scaledToWidth(100)
+            self.lbl_Image.setPixmap(Pix_Image)
+                
+    
+
 
 
 
