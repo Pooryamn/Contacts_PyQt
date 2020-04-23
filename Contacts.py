@@ -116,8 +116,10 @@ class Class_AddContact(QWidget):
         self.lbl_Title.setAlignment(Qt.AlignCenter)
 
         self.lbl_Image = QLabel()
-        self.lbl_Image.setPixmap(QPixmap('icons/Man_Default.png'))
-        self.lbl_Image.
+        Pix_image = QPixmap('icons/Man_Default.png')
+        Pix_image = Pix_image.scaledToWidth(100)
+        self.lbl_Image.setPixmap(Pix_image)
+        
         self.lbl_Image.setAlignment(Qt.AlignCenter) 
 
 
@@ -145,6 +147,7 @@ class Class_AddContact(QWidget):
 
         self.Radio_Male.setChecked(True)
         #self.Radio_Male.changeEvent.connect(self.Change_Default)
+        self.Radio_Male.toggled.connect(self.Change_Default)
 
         # Phone :
         self.lbl_Phone = QLabel('Phone number* :')
@@ -204,6 +207,18 @@ class Class_AddContact(QWidget):
 
         # set main layout for this form (Add Contacts)
         self.setLayout(self.MainLayout)
+
+    def Change_Default(self):
+        if (self.Radio_Male.isChecked()):
+            Pix_Man = QPixmap('icons/Man_Default.png')
+            Pix_Man = Pix_Man.scaledToWidth(100)
+            self.lbl_Image.setPixmap(Pix_Man)
+        else:
+            Pix_Woman = QPixmap('icons/Woman_Default.png')
+            Pix_Woman = Pix_Woman.scaledToWidth(100)
+            self.lbl_Image.setPixmap(Pix_Woman)
+
+
 
 
 def main():
