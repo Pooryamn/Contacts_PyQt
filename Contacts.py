@@ -165,6 +165,7 @@ class Class_AddContact(QWidget):
         # Image :
         self.lbl_Images = QLabel('Picture :')
         self.Btn_Image = QPushButton('Browse')
+        self.Btn_Image.setStyleSheet('background-color : rgb(176,28,129);')
 
         # Address 
         self.lbl_Address = QLabel('Address :')
@@ -172,6 +173,7 @@ class Class_AddContact(QWidget):
 
         # Add Button :
         self.Btn_Add = QPushButton('Add')
+        self.Btn_Add.setStyleSheet('background-color : rgb(176,28,129);')
 
 
     def Layouts(self):
