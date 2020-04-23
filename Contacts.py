@@ -108,6 +108,9 @@ class Class_AddContact(QWidget):
         self.Layouts()
 
     def MainDesign(self):
+        # set style for add Ui form :
+        self.setStyleSheet('background-color : white;font-size : 9pt')
+
         # create widgets : 
 
         # For Top Layout :
@@ -227,4 +230,4 @@ def main():
     sys.exit(App.exec_())
 
 if __name__ == '__main__':
-    main()
+    main() 
