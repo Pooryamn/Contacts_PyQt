@@ -116,8 +116,8 @@ class Class_AddContact(QWidget):
         self.lbl_Title.setAlignment(Qt.AlignCenter)
 
         self.lbl_Image = QLabel()
-        self.lbl_Image.setPixmap(QPixmap('icons/Man_Default.png'),200,200)
-        self.lbl_Image.resize(200,200)
+        self.lbl_Image.setPixmap(QPixmap('icons/Man_Default.png'))
+        self.lbl_Image.
         self.lbl_Image.setAlignment(Qt.AlignCenter) 
 
 
