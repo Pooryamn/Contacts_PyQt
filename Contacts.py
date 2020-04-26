@@ -277,18 +277,18 @@ class Class_AddContact(QWidget):
             email = self.txt_Email.text()
             gender = 0 #Male
             img = Default_Image
-            if(self.Radio_Female.isChecked):
+            if(self.Radio_Female.isChecked()):
                 gender = 1 # female
             
 
             # add data to database
             try:
                 query = 'insert into Contacts(Name,Lastname,Phone,Email,Image,Address,Gender) values (?,?,?,?,?,?,?)'
-                cursor.execute(query,(name,family,phone,email,img,address,gender))
+                Cursor.execute(query,(name,family,phone,email,img,address,gender))
                 Connection.commit() # set changes in database
                 QMessageBox.information(self,'Success','Contact added to DataBase')
-            except:
-                QMessageBox.warning(self,'Failed','Contact can\'t be added to DataBase')
+            except :
+               QMessageBox.warning(self,'Failed','Contact can\'t be added to DataBase')
     
 
 
@@ -302,7 +302,7 @@ class Class_AddContact(QWidget):
             QMessageBox.warning(self,'Input error','Phone number is empty')
             return False
     
-    return True
+        return True
         
         
 
