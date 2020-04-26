@@ -102,6 +102,7 @@ class Class_AddContact(QWidget):
         self.UI()
         self.show()
 
+
     def UI(self):
         # This function create and design Form widgets
         
@@ -110,6 +111,11 @@ class Class_AddContact(QWidget):
         
         # Create layouts and set widgets to them
         self.Layouts()
+
+    def closeEvent(self,event):
+
+        self.mainUI = Window()
+
 
     def MainDesign(self):
         # set style for add Ui form :
@@ -287,6 +293,9 @@ class Class_AddContact(QWidget):
                 Cursor.execute(query,(name,family,phone,email,img,address,gender))
                 Connection.commit() # set changes in database
                 QMessageBox.information(self,'Success','Contact added to DataBase')
+                # go to Main UI
+                self.close()
+                self.mainUI = Window()
             except :
                QMessageBox.warning(self,'Failed','Contact can\'t be added to DataBase')
     
