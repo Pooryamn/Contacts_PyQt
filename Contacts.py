@@ -264,11 +264,35 @@ class Class_AddContact(QWidget):
             self.lbl_Image.setPixmap(Pix_Image)
 
     def Btn_Add_Clicked(self):
+        
         # Check inputs are ok
-        self.Check_Input()
+        if (self.Check_Input() == True):
+            
+            # prepare data for database : 
 
-        # add data to database        
+            name = self.txt_Name.text()
+            family = self.txt_Lastname.text()
+            phone = self.txt_Phone.text()
+            address = self.txt_Address.toPlainText()
+            email = self.txt_Email.text()
+            gender = 0 #Male
+            img = Default_Image
+            if(self.Radio_Female.isChecked):
+                gender = 1 # female
+            
+
+            # add data to database
+            try:
+                query = 'insert into Contacts(Name,Lastname,Phone,Email,Image,Address,Gender) values (?,?,?,?,?,?,?)'
+                cursor.execute(query,(name,family,phone,email,img,address,gender))
+                Connection.commit() # set changes in database
+                QMessageBox.information(self,'Success','Contact added to DataBase')
+            except:
+                QMessageBox.warning(self,'Failed','Contact can\'t be added to DataBase')
     
+
+
+
     def Check_Input(self):
         if (self.txt_Name.text().replace(' ','') == ''):
             QMessageBox.warning(self,'Input error','First name is empty')
@@ -277,10 +301,10 @@ class Class_AddContact(QWidget):
         if (self.txt_Phone.text().replace(' ','') == ''):
             QMessageBox.warning(self,'Input error','Phone number is empty')
             return False
+    
+    return True
         
         
-
-
 
 
 def main():
