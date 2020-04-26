@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import *
 import sqlite3
-from PyQt5.QtGui import QPixmap,QFont
+from PyQt5.QtGui import QPixmap,QFont,QRegExpValidator
 from PyQt5.QtCore import *
 from PIL import Image
 import sys
@@ -159,6 +159,11 @@ class Class_AddContact(QWidget):
         # Phone :
         self.lbl_Phone = QLabel('Phone number* :')
         self.txt_Phone = QLineEdit()
+
+        my_regExp = QRegExp('[+]*[0-9]*')
+        my_validator = QRegExpValidator(my_regExp)
+        self.txt_Phone.setValidator(my_validator)
+
         self.txt_Phone.setPlaceholderText('Enter Phone number') 
 
         # Email :
@@ -260,11 +265,20 @@ class Class_AddContact(QWidget):
 
     def Btn_Add_Clicked(self):
         # Check inputs are ok
-        pass
+        self.Check_Input()
 
         # add data to database        
     
-
+    def Check_Input(self):
+        if (self.txt_Name.text().replace(' ','') == ''):
+            QMessageBox.warning(self,'Input error','First name is empty')
+            return False
+        
+        if (self.txt_Phone.text().replace(' ','') == ''):
+            QMessageBox.warning(self,'Input error','Phone number is empty')
+            return False
+        
+        
 
 
 
