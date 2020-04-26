@@ -10,6 +10,7 @@ import os
 
 Connection = sqlite3.connect('DataBase/Contacts.db')
 Cursor = Connection.cursor()
+Default_Image = '/icons/Man_Default.png'
 
 class Window(QWidget):
     def __init__(self):
@@ -178,6 +179,7 @@ class Class_AddContact(QWidget):
         # Add Button :
         self.Btn_Add = QPushButton('Add')
         self.Btn_Add.setStyleSheet('background-color : rgb(176,28,129);')
+        self.Btn_Add.clicked.connect(self.Btn_Add_Clicked)
 
 
     def Layouts(self):
@@ -218,24 +220,30 @@ class Class_AddContact(QWidget):
         self.setLayout(self.MainLayout)
 
     def Change_Default(self):
+        global Default_Image
+
         if (self.Radio_Male.isChecked()):
+            Default_Image = 'icons/Man_Default.png'
             Pix_Man = QPixmap('icons/Man_Default.png')
             Pix_Man = Pix_Man.scaledToWidth(100)
             self.lbl_Image.setPixmap(Pix_Man)
         else:
+            Default_Image = 'icons/Woman_Default.png'
             Pix_Woman = QPixmap('icons/Woman_Default.png')
             Pix_Woman = Pix_Woman.scaledToWidth(100)
             self.lbl_Image.setPixmap(Pix_Woman)
 
     def LoadImage(self):
         
+        global Default_Image
+
         size = (100,100)
         self.FileName,ok = QFileDialog.getOpenFileName(self,'Load Image','','Image Files(*.jpg *.png)')
 
 
         if (ok):
 
-            exact_filename = os.path.basename(self.FileName)
+            Default_Image = os.path.basename(self.FileName)
 
             Image_File = Image.open(self.FileName)
             Image_File = Image_File.resize(size)
@@ -244,12 +252,17 @@ class Class_AddContact(QWidget):
             if not os.path.exists(directory):
                 os.makedirs(directory)
 
-            Image_File.save('imgs/{}'.format(exact_filename))
+            Image_File.save('imgs/{}'.format(Default_Image))
             
-            Pix_Image = QPixmap('imgs/{}'.format(exact_filename))
+            Pix_Image = QPixmap('imgs/{}'.format(Default_Image))
             Pix_Image = Pix_Image.scaledToWidth(100)
             self.lbl_Image.setPixmap(Pix_Image)
-                
+
+    def Btn_Add_Clicked(self):
+        # Check inputs are ok
+        pass
+
+        # add data to database        
     
 
 
