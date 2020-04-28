@@ -132,8 +132,12 @@ class Window(QWidget):
             self.ContactsList.addItem(str(row[0])+') '+str(row[1])+' '+str(row[2]))
 
 
-    def DisplayFirstRecord(self):
-        query = 'select * from Contacts order by id asc limit 1'
+    def DisplayFirstRecord(self,id=''):
+
+        if (id == ''):
+            query = 'select * from Contacts order by id asc limit 1'
+        else :
+            query = 'select * from Contacts where id = {}'.format(id)
 
         Contact = Cursor.execute(query).fetchone()
 
@@ -151,6 +155,11 @@ class Window(QWidget):
         if(Contact[7] == 1):
             lbl_gender.setText('Female')
 
+        #clear Form Layout:
+        for row in range(len(self.LeftSideLayout)):
+            self.LeftSideLayout.removeRow(0)
+            
+
         self.LeftSideLayout.setVerticalSpacing(20)
         self.LeftSideLayout.addRow('',lbl_Image)
         self.LeftSideLayout.addRow('Name : ',lbl_name)
@@ -162,11 +171,12 @@ class Window(QWidget):
 
     def ShowSpecialContact(self):
         Current_Contact = self.ContactsList.currentItem().text()
-        Contact_id = Contact.split(')')[0]
+        Contact_id = Current_Contact.split(')')[0]
 
-        query = 'select * from Contacts where id = {}'.format(Contact_id)
+        #query = 'select * from Contacts where id = {}'.format(Contact_id)
 
-        Contact = Cursor.execute(query).fetchone()
+        #Contact = Cursor.execute(query).fetchone()
+        self.DisplayFirstRecord(Contact_id)
         
 
 
