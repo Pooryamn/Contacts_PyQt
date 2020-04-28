@@ -46,6 +46,7 @@ class Window(QWidget):
         ########## List Widget ##########
         # List Widget : 
         self.ContactsList = QListWidget()
+        self.ContactsList.itemClicked.connect(self.ShowSpecialContact)
         
         ########## Buttons ##########
         # New Button :
@@ -159,6 +160,14 @@ class Window(QWidget):
         self.LeftSideLayout.addRow('Email : ',lbl_email)
         self.LeftSideLayout.addRow('Address : ',lbl_address)
 
+    def ShowSpecialContact(self):
+        Current_Contact = self.ContactsList.currentItem().text()
+        Contact_id = Contact.split(')')[0]
+
+        query = 'select * from Contacts where id = {}'.format(Contact_id)
+
+        Contact = Cursor.execute(query).fetchone()
+        
 
 
 
