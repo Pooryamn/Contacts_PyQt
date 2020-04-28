@@ -28,12 +28,20 @@ class Window(QWidget):
         # create layouts for UI :
         self.Layouts()
         
+        # get all data from database
         self.GetContacts()
+
+        # show first record of database
+        self.DisplayFirstRecord()
+
 
         self.show()
 
     def MainDesign(self):
         ### This function just create UI widgets : 
+
+        # set font size for all widgets :
+        self.setStyleSheet('font-size:10pt;')
 
         ########## List Widget ##########
         # List Widget : 
@@ -123,7 +131,35 @@ class Window(QWidget):
             self.ContactsList.addItem(str(row[0])+') '+str(row[1])+' '+str(row[2]))
 
 
-            
+    def DisplayFirstRecord(self):
+        query = 'select * from Contacts order by id asc limit 1'
+
+        Contact = Cursor.execute(query).fetchone()
+
+        lbl_Image = QLabel()
+        Pix_image = QPixmap('imgs/'+Contact[5])
+        Pix_image = Pix_image.scaledToWidth(100)
+        lbl_Image.setPixmap(Pix_image)
+
+        lbl_name = QLabel(Contact[1])
+        lbl_lname = QLabel(Contact[2])
+        lbl_phone = QLabel(Contact[3])
+        lbl_email = QLabel(Contact[4])
+        lbl_address = QLabel(Contact[6])
+        lbl_gender = QLabel('Male')
+        if(Contact[7] == 1):
+            lbl_gender.setText('Female')
+
+        self.LeftSideLayout.setVerticalSpacing(20)
+        self.LeftSideLayout.addRow('',lbl_Image)
+        self.LeftSideLayout.addRow('Name : ',lbl_name)
+        self.LeftSideLayout.addRow('Lastname : ',lbl_lname)
+        self.LeftSideLayout.addRow('Gender : ',lbl_gender)
+        self.LeftSideLayout.addRow('Phone : ',lbl_phone)
+        self.LeftSideLayout.addRow('Email : ',lbl_email)
+        self.LeftSideLayout.addRow('Address : ',lbl_address)
+
+
 
 
 ## Add Contact Class (Contains Form):
