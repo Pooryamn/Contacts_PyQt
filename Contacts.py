@@ -27,6 +27,8 @@ class Window(QWidget):
         
         # create layouts for UI :
         self.Layouts()
+        
+        self.GetContacts()
 
         self.show()
 
@@ -48,6 +50,11 @@ class Window(QWidget):
         # Remove Button :
         self.Btn_Remove = QPushButton('Remove')
 
+        ########## LineEdit ##########
+        self.txt_Search = QLineEdit()
+        self.txt_Search.setPlaceholderText('Search')
+        self.txt_Search.textChanged.connect(self.SearchData)
+
     def Layouts(self):
         # This function creates UI Layouts and setting Widgets to them : 
 
@@ -62,7 +69,7 @@ class Window(QWidget):
         self.RightMainLayout = QVBoxLayout()
 
         # Right Side Top Layout :
-        self.RightTopLayout = QHBoxLayout()
+        self.RightTopLayout = QVBoxLayout()
 
         # Right side Bottom Layout(for Buttons):
         self.RightBottomLayout = QHBoxLayout()
@@ -79,9 +86,11 @@ class Window(QWidget):
         ########## Add Widgets to LayOut ##########
         # Right Side : 
         self.RightTopLayout.addWidget(self.ContactsList) 
+        self.RightTopLayout.addWidget(self.txt_Search)
         self.RightBottomLayout.addWidget(self.Btn_New)
         self.RightBottomLayout.addWidget(self.Btn_Edit)
         self.RightBottomLayout.addWidget(self.Btn_Remove)
+        
 
 
         # set Main Layout for our ui :
@@ -91,6 +100,31 @@ class Window(QWidget):
         # This functoin open a new form to add contacts to DB
         self.Form_AddContact = Class_AddContact()
         self.close()
+
+    def GetContacts(self):
+        # get data from database
+        query = 'select id,Name,Lastname from Contacts'
+        
+        Contacts_Records = Cursor.execute(query).fetchall()
+
+        for row in Contacts_Records:
+            self.ContactsList.addItem(str(row[0])+') '+str(row[1])+' '+str(row[2]))
+
+    def SearchData(self):
+        #get search data from database
+
+        self.ContactsList.clear()
+
+        query = 'select id,Name,Lastname from Contacts where Name like \'%{}%\''.format(self.txt_Search.text())
+
+        Contacts_Records = Cursor.execute(query).fetchall()
+
+        for row in Contacts_Records:
+            self.ContactsList.addItem(str(row[0])+') '+str(row[1])+' '+str(row[2]))
+
+
+            
+
 
 ## Add Contact Class (Contains Form):
 
