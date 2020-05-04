@@ -55,6 +55,7 @@ class Window(QWidget):
 
         # Edit Button :
         self.Btn_Edit = QPushButton('Edit')
+        self.Btn_Edit.clicked.connect(self.EditContact)
 
         # Remove Button :
         self.Btn_Remove = QPushButton('Remove')
@@ -208,17 +209,33 @@ class Window(QWidget):
                 except expression as identifier:
                     QMessageBox.warning(self,'Internal Error','Contact has not been deleted !')
 
+    def EditContact(self):
+
+        if(self.ContactsList.selectedIndexes() != [] ):
+
+            id , name = self.ContactsList.currentItem().text().split(')')
+            
+            self.close()
+            self.EditWindow = Class_AddContact(id)
+            
+
 
 
 ## Add Contact Class (Contains Form):
 
 class Class_AddContact(QWidget):
-    def __init__(self):
+    def __init__(self,id=''):
         super().__init__()
         self.setWindowTitle('Add Contact')
         self.setGeometry(450,150,350,600)
         self.UI()
         self.show()
+        
+        if (id != ''):
+            #QMessageBox.information(self,'gf','dsg')
+            self.Btn_Add.setText('Update')
+
+            self.LoadContact(id)
 
 
     def UI(self):
@@ -430,6 +447,14 @@ class Class_AddContact(QWidget):
             return False
     
         return True
+
+    def LoadContact(self,id):
+        # get data from database
+        query = 'select * from Contacts where id = {}'.format(id)
+        
+        Contact_Data = Cursor.execute(query).fetchone()
+
+        print(Contact_Data)
         
         
 
