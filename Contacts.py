@@ -58,6 +58,7 @@ class Window(QWidget):
 
         # Remove Button :
         self.Btn_Remove = QPushButton('Remove')
+        self.Btn_Remove.clicked.connect(self.RemoveContact)
 
         ########## LineEdit ##########
         self.txt_Search = QLineEdit()
@@ -177,7 +178,35 @@ class Window(QWidget):
 
         #Contact = Cursor.execute(query).fetchone()
         self.DisplayFirstRecord(Contact_id)
-        
+
+
+    def RemoveContact(self):
+        if(self.ContactsList.selectedIndexes() != [] ):
+            
+            # get id , name from selected item in list :
+            id , name = self.ContactsList.currentItem().text().split(')')
+            
+            mBox = QMessageBox.question(self,'Warning','Are you sure to delete {} ?'.format(name),QMessageBox.Yes,QMessageBox.No)
+
+            if (mBox == QMessageBox.No):
+                # User says no
+                return
+
+            else :
+                # user says Yes:
+                try:
+                    
+                    query = 'delete from Contacts where id = {}'.format(id)
+
+                    Cursor.execute(query)
+
+                    Connection.commit()
+                    
+                    self.ContactsList.clear()
+                    self.GetContacts()
+
+                except expression as identifier:
+                    QMessageBox.warning(self,'Internal Error','Contact has not been deleted !')
 
 
 
