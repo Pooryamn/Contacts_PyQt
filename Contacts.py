@@ -232,7 +232,7 @@ class Class_AddContact(QWidget):
         self.show()
         
         if (id != ''):
-            #QMessageBox.information(self,'gf','dsg')
+            self.UserID = id
             self.Btn_Add.setText('Update')
 
             self.LoadContact(id)
@@ -421,19 +421,34 @@ class Class_AddContact(QWidget):
             if(self.Radio_Female.isChecked()):
                 gender = 1 # female
             
+            if (self.Btn_Add.text() == 'Add'):
+                # add data to database
+                try:
+                    query = 'insert into Contacts(Name,Lastname,Phone,Email,Image,Address,Gender) values (?,?,?,?,?,?,?)'
+                    Cursor.execute(query,(name,family,phone,email,img,address,gender))
+                    Connection.commit() # set changes in database
+                    QMessageBox.information(self,'Success','Contact added to DataBase')
+                    # go to Main UI
+                    self.close()
+                    self.mainUI = Window()
+                except :
+                    QMessageBox.warning(self,'Failed','Contact can\'t be added to DataBase')
+            
+            else:
+                # updatw data to database
+                try:
+                    query = '''update Contacts 
+                               set Name = ?,Lastname = ?, Phone = ? , Email = ? , Image = ? , Address = ? , Gender = ?
+                               where id = ?'''
+                    Cursor.execute(query,(name,family,phone,email,img,address,gender,self.UserID))
+                    Connection.commit() # set changes in database
+                    QMessageBox.information(self,'Success','Contact Updated !')
+                    # go to Main UI
+                    self.close()
+                    self.mainUI = Window()
+                except :
+                    QMessageBox.warning(self,'Failed','Contact can\'t Update')
 
-            # add data to database
-            try:
-                query = 'insert into Contacts(Name,Lastname,Phone,Email,Image,Address,Gender) values (?,?,?,?,?,?,?)'
-                Cursor.execute(query,(name,family,phone,email,img,address,gender))
-                Connection.commit() # set changes in database
-                QMessageBox.information(self,'Success','Contact added to DataBase')
-                # go to Main UI
-                self.close()
-                self.mainUI = Window()
-            except :
-               QMessageBox.warning(self,'Failed','Contact can\'t be added to DataBase')
-    
 
 
 
@@ -454,7 +469,27 @@ class Class_AddContact(QWidget):
         
         Contact_Data = Cursor.execute(query).fetchone()
 
-        print(Contact_Data)
+        profile = QPixmap(Contact_Data[5])
+        self.lbl_Image.setPixmap(profile)
+
+        self.txt_Name.setText(Contact_Data[1])
+
+        self.txt_Lastname.setText(Contact_Data[2])
+
+        self.txt_Phone.setText(Contact_Data[3])
+
+        self.txt_Email.setText(Contact_Data[4])
+
+        self.txt_Address.setText(Contact_Data[6])
+
+        Sex = 0
+        if(str(Contact_Data[7]) == '1'):
+            Sex = 1
+
+        if (Sex == 1):
+            self.Radio_Female.setChecked(True)
+        
+
         
         
 
