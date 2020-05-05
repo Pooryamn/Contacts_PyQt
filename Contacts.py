@@ -469,7 +469,7 @@ class Class_AddContact(QWidget):
         
         Contact_Data = Cursor.execute(query).fetchone()
 
-        profile = QPixmap(Contact_Data[5])
+        profile = QPixmap('imgs/'+Contact_Data[5])
         self.lbl_Image.setPixmap(profile)
 
         self.txt_Name.setText(Contact_Data[1])
